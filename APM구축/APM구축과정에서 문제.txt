@@ -1,0 +1,48 @@
+PHP - MySql 연동
+
+출처 http://belong2jesus.tistory.com/13
+
+1. PHP가 설치된 곳에 php ver 5이상에는 php.ini파일이 php.ini-development ,php.ini-production 두가지로 제공을 해 주고 있습니다.
+
+이 파일을 php.ini로 변경하여 아래 부분을 변경합니다. (php.ini-development 를 php.ini 로 변경)
+
+2. ;extension_dir =  주석제거,
+   extension_dir = "PHP설치경로/ext" 로 변경
+
+3. ;extension=php_mysqli.dll 주석제거
+
+
+
+기타사항
+
+두 번째, 중요한 것은 환변변수를 추가해 주는 것입니다. 환경변수에 PHP가 설치 되어 있는 경로를 Path변수에 추가를 해줍니다. 이렇게 하지 않으면 C:\windows\system32 폴더 아래에 "*.dll"파일을 복사해 줘야 합니다. 하지만 이 경우 업그레이드시에 별 추천할 방법이 아니라고 합니다.
+
+
+
+
+세 번째, 본래 phpinfo() 함수를 써보면 Configuration File(php.ini)을 불러 오는 곳이 "C:\windows"로 설정되어 있어서 "php.ini"파일 설정 한 것을 "C:\windows"에 복사해야 합니다. 하지만, 이렇게 하지 않고, 레지스트리에 PHP설치 경로를 추가 합니다.
+
+
+
+
+HKEY_LOCAL_MACHINE\SOFTWARE\PHP에 IniFilePath를 추가하고 php.ini파일이 있는 "C:\inet\PHP"를 추가합니다. 아니면, 다음의  내용을 그대로 *.reg 파일로 만들어도 됩니다.
+
+그리고 그것을 실행하고 Apache 서버를 구동하면 됩니다.
+
+
+
+
+[code]Windows Registry Editor Version 5.00
+[HKEY_LOCAL_MACHINE\SOFTWARE\PHP]
+"IniFilePath"="C:\\inet\\PHP"
+[/code]
+
+
+
+
+이렇게하고 나면 mysql_connect() 함수를 써도 아무런 이상없이 잘 돌아 갑니다.
+
+
+
+
+문제는 SQL이 버전차이로 에러가 나더군요.....;;;; 이건 또 극복후에 기회가 되면 
